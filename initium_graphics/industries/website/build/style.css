@@ -855,8 +855,9 @@ button {
   top: 1em;
   left: 1em;
   position: absolute;
-  width: 8vw;
-  height: 8vw;
+  width: 7vw;
+  height: 7vw;
+  z-index: 9999;
 }
 .logo {
   width: 6vw;
@@ -875,4 +876,9 @@ button {
   vertical-align: text-bottom;
   fill: currentColor;
   width: auto;
+}
+#y-percap {
+  fill: #53534e;
+  font-size: 14px;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }

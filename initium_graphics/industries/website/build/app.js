@@ -34232,10 +34232,10 @@ var __dimensions_43 = {
   width: __width_43,
   height: window.innerHeight * 0.8,
   margin: {
-    top: 20,
+    top: 30,
     right: 5,
     bottom: 20,
-    left: 40
+    left: 30
   }
 }; // Our wrapper encompasses the whole chart; we need to subtract our margins to determine our bounds
 
@@ -35167,7 +35167,7 @@ var __yAxis_52 = __bounds_52.append("g").attr("class", "greyaxis") //.attr("tran
 
 function showCircles() {
   var circles = circleGroup.append("circle").attr("class", "circle").attr("cy", function (d) {
-    return __dimensions_52.boundedHeight;
+    return __yScale_52(0);
   }).attr("cx", function (d) {
     return __xScale_52(xAccessor(d));
   }).attr("r", function (d) {
@@ -35209,7 +35209,7 @@ function showCircles() {
 //   .call(wrap, 40);
 
 
-__wrapper_52.append("text").attr("x", 10).attr("y", 10).attr("class", "y-axis-label").style("color", "#f2f2f2").text("人均GDP  （當前美元等價）").attr("text-anchor", "left").call(_$labor_47.wrap, 40);
+__wrapper_52.append("text").attr("id", "y-percap").attr("x", 10).attr("y", 10).attr("class", "greyaxis").style("color", "#f2f2f2").text("人均GDP  （當前美元等價）").attr("text-anchor", "left").call(_$labor_47.wrap, 40);
 
 function __make_y_gridlines_52() {
   return _$d3Node_38.axisLeft(__yScale_52).ticks(7);
@@ -36284,15 +36284,15 @@ scroller5.setup({
 });
 scroller6.setup({
   step: "#total-gdp",
-  offset: 0.15,
+  offset: 0.2,
   once: true
 }).onStepEnter(function (response) {
   return (0, _$gdp_45.playGDP)();
 });
 scroller7.setup({
-  step: "#stimulus",
+  step: "#stimulus-svg",
   once: true,
-  offset: 0.6
+  offset: 0.38
 }).onStepEnter(function (response) {
   (0, _$stimulus_52.showCircles)();
 });

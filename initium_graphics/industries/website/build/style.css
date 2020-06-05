@@ -295,6 +295,22 @@ body > svg {
     animation-fill-mode: forwards;
   }
 }
+@keyframes animateCloud {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-40px, 0);
+    opacity: 0;
+  }
+}
+#fume-svg #fume {
+  -webkit-animation: animateCloud 1s 1;
+  -moz-animation: animateCloud 1s 1;
+  -o-animation: animateCloud 1s 1;
+  animation: animateCloud 1s 1;
+  animation-fill-mode: forwards;
+}
 .title {
   margin: 0.8em auto;
   font-weight: 500;
@@ -467,15 +483,6 @@ p {
   font-size: 2em;
   cursor: pointer;
   display: block;
-}
-.logo {
-  width: 6vw;
-  height: 6vw;
-  top: 1em;
-  left: 1em;
-  position: absolute;
-  border: none;
-  z-index: 100;
 }
 .text {
   max-width: 650px;
@@ -805,43 +812,60 @@ path.arrow,
 }
 button {
   padding: 0.4em;
+  font-size: 1rem;
   background-color: #a1d1d2;
   border: none;
   color: white;
   border-radius: 4px;
   cursor: pointer;
 }
-@keyframes shake {
-  10%,
-  90% {
-    transform: translate3d(-1px, 0, 0);
+@keyframes shake-animation {
+  0% {
+    transform: translate(0, 0);
   }
-  20%,
-  80% {
-    transform: translate3d(2px, 0, 0);
+  1.78571% {
+    transform: translate(5px, 0);
   }
-  30%,
-  50%,
-  70% {
-    transform: translate3d(-4px, 0, 0);
+  3.57143% {
+    transform: translate(0, 0);
   }
-  40%,
-  60% {
-    transform: translate3d(4px, 0, 0);
+  5.35714% {
+    transform: translate(5px, 0);
+  }
+  7.14286% {
+    transform: translate(0, 0);
+  }
+  8.92857% {
+    transform: translate(5px, 0);
+  }
+  10.71429% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 0);
   }
 }
-#竖表 .is-active {
-  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  transform: translate3d(0, 0, 0);
+#stocks-svg {
+  animation: shake-animation 4.72s ease infinite;
+  transform-origin: 50% 50%;
   backface-visibility: hidden;
   perspective: 1000px;
 }
 .cover__logo {
-  top: 2em;
-  left: 2em;
+  top: 1em;
+  left: 1em;
   position: absolute;
-  width: 5em;
-  height: 5em;
+  width: 8vw;
+  height: 8vw;
+}
+.logo {
+  width: 6vw;
+  height: 6vw;
+  top: 1em;
+  left: 1em;
+  position: absolute;
+  border: none;
+  z-index: 100;
 }
 .icon--logo {
   color: #000;

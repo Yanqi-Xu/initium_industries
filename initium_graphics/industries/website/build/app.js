@@ -30188,9 +30188,9 @@ var _$oil_50 = {};
 
 var margin = {
   top: 20,
-  right: 10,
+  right: 20,
   bottom: 10,
-  left: 35
+  left: 20
 },
     __width_50 = window.innerWidth * 0.85 - margin.left - margin.right,
     // Use the window's width
@@ -34242,7 +34242,7 @@ var __dimensions_43 = {
 __dimensions_43.boundedWidth = __dimensions_43.width - __dimensions_43.margin.left - __dimensions_43.margin.right;
 __dimensions_43.boundedHeight = __dimensions_43.height - __dimensions_43.margin.top - __dimensions_43.margin.bottom; // Draw canvas
 
-var __wrapper_43 = _$d3Node_38.select("#emissions").append("svg").attr("width", __dimensions_43.width).attr("height", __dimensions_43.height).attr("viewBox", "0 0 ".concat(__dimensions_43.width + __dimensions_43.margin.left, " ").concat(__dimensions_43.height + __dimensions_43.margin.top));
+var __wrapper_43 = _$d3Node_38.select("#emissions").append("svg").attr("width", __dimensions_43.width).attr("height", __dimensions_43.height).attr("viewBox", "0 0 ".concat(__dimensions_43.width + __dimensions_43.margin.left, " ").concat(__dimensions_43.height + __dimensions_43.margin.top + 10));
 var __bounds_43 = __wrapper_43.append("g").style("transform", "translate(".concat(__dimensions_43.margin.left, "px, ").concat(__dimensions_43.margin.top, "px)")); // Create scales
 
 var __xScale_43 = _$d3Node_38.scaleBand().domain(_$d3Node_38.range(emissions.length)).range([0, __dimensions_43.boundedWidth]).padding(0.2);
@@ -34460,7 +34460,7 @@ function bubbleChart() {
   // of the force layout. Now we can use it as a separate force!
 
   function charge(d) {
-    return -Math.pow(d.radius, 3.4) * forceStrength;
+    return -Math.pow(d.radius, 3.15) * forceStrength;
   } // Here we create a force layout and
   // @v4 We create a force simulation now and
   // add forces to it.
@@ -34615,7 +34615,9 @@ function bubbleChart() {
 
 
   function groupBubbles() {
-    hideYearTitles(); // @v4 Reset the 'x' force to draw the bubbles to the center.
+    hideYearTitles();
+    _$d3Node_38.selectAll(".legendOrdinal").transition().style("opacity", 1);
+    _$d3Node_38.select(".legendTitle").transition().style("opacity", 1); // @v4 Reset the 'x' force to draw the bubbles to the center.
 
     simulation.force("x", _$d3Node_38.forceX().strength(forceStrength).x(center.x)).force("y", _$d3Node_38.forceY().strength(forceStrength).y(center.y)); // @v4 We can reset the alpha value and restart the simulation
 
@@ -34648,8 +34650,8 @@ function bubbleChart() {
   }
 
   function hideChatter() {
-    _$d3Node_38.selectAll(".legendOrdinal").remove();
-    _$d3Node_38.select(".legendTitle").transition().remove();
+    _$d3Node_38.selectAll(".legendOrdinal").style("opacity", 0);
+    _$d3Node_38.select(".legendTitle").style("opacity", 0);
   }
   /*
    * Shows Year title displays.
@@ -35012,7 +35014,7 @@ var columns = [// Format our dates to make them more human readable
   }
 }, // Let's use a marker to indicate where the max temp occurred (e.g. middle of the day, later in the day)
 {
-  label: "保守估計（L型）預期",
+  label: "保守估計（L型）",
   format: function format(d) {
     return _$d3Node_38.format(".1%")(+d.L / 100);
   },
@@ -35036,6 +35038,11 @@ dataset.slice(0, numberOfRows).forEach(function (d) {
 
 var _$stimulus_52 = {};
 "use strict";
+
+Object.defineProperty(_$stimulus_52, "__esModule", {
+  value: true
+});
+_$stimulus_52.showCircles = showCircles;
 
 /* removed: var _$labor_47 = require("./labor.js"); */;
 
@@ -35111,7 +35118,7 @@ stimulusAccessor = function stimulusAccessor(d) {
   return +d.stimulus;
 };
 
-var __width_52 = window.innerWidth * 0.9;
+var __width_52 = window.innerWidth * 0.95;
 var __dimensions_52 = {
   width: __width_52,
   height: window.innerHeight * 0.9,
@@ -35157,26 +35164,42 @@ var tenKConverter = function tenKConverter(d) {
 
 var __yAxis_52 = __bounds_52.append("g").attr("class", "greyaxis") //.attr("transform", `translate(0,60)`)
 .call(_$d3Node_38.axisLeft(__yScale_52).tickSize(0).tickFormat(tenKConverter));
-var circles = circleGroup.append("circle").attr("class", "circle").attr("cy", function (d) {
-  return __yScale_52(gdpAccessor(d));
-}).attr("cx", function (d) {
-  return __xScale_52(xAccessor(d));
-}).attr("r", function (d) {
-  return __radiusScale_52(stimulusAccessor(d));
-}).attr("stroke", "#000").attr("stroke-opacity", 0.5).attr("fill", "#FCC6B7").attr("fill-opacity", 0.4).attr("id", function (d) {
-  return "".concat(d.country);
-});
-var circleLabels = circleGroup.filter(function (d) {
-  return gdpAccessor(d) > 15000;
-}).append("text").attr("class", "circle-label") //.classed("graphic-label", true)
-.text(function (d) {
-  return "".concat(d.country);
-}) //.text("ph")
-.attr("y", function (d) {
-  return __yScale_52(gdpAccessor(d));
-}).attr("x", function (d) {
-  return __xScale_52(xAccessor(d));
-}).attr("text-anchor", "middle").attr("class", "graphic-label"); // .attr("dx", "-.35em")
+
+function showCircles() {
+  var circles = circleGroup.append("circle").attr("class", "circle").attr("cy", function (d) {
+    return __dimensions_52.boundedHeight;
+  }).attr("cx", function (d) {
+    return __xScale_52(xAccessor(d));
+  }).attr("r", function (d) {
+    return __radiusScale_52(stimulusAccessor(d));
+  }).attr("stroke", "#000").attr("stroke-opacity", 0.3).attr("fill", "#FCC6B7").attr("fill-opacity", 0.4).attr("id", function (d) {
+    return "".concat(d.country);
+  }).transition().duration(2000).delay(function (d, i) {
+    return i * 100;
+  }).attr("cy", function (d) {
+    return __yScale_52(gdpAccessor(d));
+  });
+  var circleLabels = circleGroup.filter(function (d) {
+    return gdpAccessor(d) > 15000;
+  }).append("text").attr("class", "circle-label") //.classed("graphic-label", true)
+  .text(function (d) {
+    return "".concat(d.country);
+  }) //.text("ph")
+  .attr("y", function (d) {
+    return __yScale_52(gdpAccessor(d));
+  }).attr("x", function (d) {
+    return __xScale_52(xAccessor(d));
+  }).attr("text-anchor", "middle").attr("class", "graphic-label").style("opacity", 0).transition().duration(1200).delay(4500).style("opacity", 1);
+  var fromElementX = __xScale_52("埃塞俄比亞");
+  var fromElementY = __yScale_52(772) - __radiusScale_52(15) - 1; // const fromElementX = +d3.select("#埃塞俄比亞").attr("cx");
+  // const fromElementY = +d3.select("#埃塞俄比亞").attr("cy") - 2;
+
+  var endElementY = +fromElementY - __radiusScale_52(15) - 65;
+  __bounds_52.append("line").attr("x1", fromElementX).attr("y1", fromElementY).attr("x2", fromElementX).attr("y2", endElementY).attr("stroke", "grey").style("opacity", 0).transition().duration(800).delay(5000).style("opacity", 1);
+  __bounds_52.append("text").attr("x", fromElementX).attr("y", endElementY).attr("text-anchor", "middle").classed("graphic-label", true).attr("dy", "-1.7em").text("埃塞俄比亞").style("opacity", 0).transition().duration(1000).delay(5000).style("opacity", 1);
+  __bounds_52.append("text").attr("x", fromElementX).attr("y", endElementY).attr("dy", "-.65em").attr("dx", ".15em").attr("text-anchor", "middle").classed("graphic-label", true) //.attr("dy","-2em")
+  .text("人均政府刺激15美元").style("color", "grey").style("opacity", 0).transition().duration(1000).delay(5000).style("opacity", 1);
+} // .attr("dx", "-.35em")
 // .attr("dy", "-.35em");
 // const yAxisLabel = wrapper
 //   .append("text")
@@ -35185,7 +35208,8 @@ var circleLabels = circleGroup.filter(function (d) {
 //   .text(`人均GDP（當前美元等價）`)
 //   .call(wrap, 40);
 
-__wrapper_52.append("text").attr("x", 10).attr("y", 10).attr("class", "y-axis-label").text("人均GDP  （當前美元等價）").attr("text-anchor", "left").call(_$labor_47.wrap, 40);
+
+__wrapper_52.append("text").attr("x", 10).attr("y", 10).attr("class", "y-axis-label").style("color", "#f2f2f2").text("人均GDP  （當前美元等價）").attr("text-anchor", "left").call(_$labor_47.wrap, 40);
 
 function __make_y_gridlines_52() {
   return _$d3Node_38.axisLeft(__yScale_52).ticks(7);
@@ -35210,15 +35234,7 @@ legendBody.selectAll("legend").data(valuesToShow).enter().append("text").attr("x
 }).text(function (d) {
   return tenKConverter(d);
 }).style("font-size", 10) //.attr("alignment-baseline", "middle")
-.attr("text-anchor", "middle").classed("graphic-label", true);
-var fromElementX = +_$d3Node_38.select("#埃塞俄比亞").attr("cx");
-var fromElementY = +_$d3Node_38.select("#埃塞俄比亞").attr("cy") - 2;
-var endElementX = +fromElementX + 45;
-var endElementY = +fromElementY - 45;
-__bounds_52.append("line").attr("x1", fromElementX).attr("y1", fromElementY).attr("x2", fromElementX).attr("y2", endElementY).attr("stroke", "grey");
-__bounds_52.append("text").attr("x", fromElementX).attr("y", endElementY).attr("text-anchor", "middle").classed("graphic-label", true).attr("dy", "-1.7em").text("埃塞俄比亞");
-__bounds_52.append("text").attr("x", fromElementX).attr("y", endElementY).attr("dy", "-.65em").attr("text-anchor", "middle").classed("graphic-label", true) //.attr("dy","-2em")
-.text("人均政府刺激15美元");
+.attr("text-anchor", "middle").classed("graphic-label", true); //showCircles();
 
 var _$gdp_45 = {};
 "use strict";
@@ -35237,9 +35253,9 @@ var __margin_45 = {
   bottom: 10,
   left: 10
 },
-    __width_45 = window.innerWidth - __margin_45.left - __margin_45.right,
+    __width_45 = window.innerWidth * 0.95 - __margin_45.left - __margin_45.right,
     // Use the window's width
-__height_45 = window.innerHeight - __margin_45.top - __margin_45.bottom; // Use the window's height
+__height_45 = window.innerHeight * 0.9 - __margin_45.top - __margin_45.bottom; // Use the window's height
 
 var __wrapper_45 = _$d3Node_38.select("#gdp").append("svg").attr("width", __width_45 + __margin_45.left + __margin_45.right).attr("height", __height_45 + __margin_45.top + __margin_45.bottom);
 var gdpSVG = __wrapper_45.append("g").attr("transform", "translate(" + __margin_45.left + "," + __margin_45.top + ")");
@@ -35270,7 +35286,7 @@ var nextData = yearSelector(nextYear);
 var __color_45 = _$d3Node_38.scaleOrdinal(__themeColors_45); // set up treemap layout
 
 var treemap = _$d3Node_38.treemap().tile(_$d3Node_38.treemapResquarify).size([__width_45, __height_45]).padding(1);
-_$d3Node_38.select("#total").attr(); // start wrapping in function
+_$d3Node_38.select("#total-gdp").attr(); // start wrapping in function
 
 var __nest_45 = _$d3Node_38.nest().key(function (d) {
   return d.country;
@@ -36134,6 +36150,8 @@ var _$main_56 = {};
 
 /* removed: var _$gdp_45 = require("./lib/gdp.js"); */;
 
+/* removed: var _$stimulus_52 = require("./lib/stimulus.js"); */;
+
 /* removed: var _$labor_47 = require("./lib/labor.js"); */;
 
 _$mobility_49;
@@ -36183,11 +36201,11 @@ tlPlane.from("#pinkie-plane", {
 //.to("#pinkie-plane", { duration: 1, y: -200 });
 // Initialize scroller
 
+var scroller = _$scrollama_40();
 var scroller1 = _$scrollama_40();
 var scroller2 = _$scrollama_40();
 var scroller3 = _$scrollama_40();
 var scroller4 = _$scrollama_40();
-var scroller = _$scrollama_40();
 var scroller5 = _$scrollama_40();
 var scroller6 = _$scrollama_40();
 var scroller7 = _$scrollama_40();
@@ -36238,42 +36256,45 @@ scroller1.setup({
   return tlPlane.play();
 });
 scroller2.setup({
-  step: "#flights",
-  once: true
+  step: "#pinkie-plane",
+  once: true,
+  offset: 0.32
 }).onStepEnter(function (response) {
   return (0, _$flights_44.updatePie)();
 });
 scroller3.setup({
-  step: "#tourism"
+  step: "#mountain",
+  offset: 0.32
 }).onStepEnter(function (response) {
   return _$tourism_54.drawBell();
 });
 scroller4.setup({
+  step: "#fume-svg",
+  offset: 0.6,
+  once: true
+}).onStepEnter(function (response) {
+  return console.log(document.querySelector("#fume"));
+});
+scroller5.setup({
   step: "#labor-page .hed",
   offset: 0.9,
   once: true
 }).onStepEnter(function (response) {
   return (0, _$labor_47.showBubbles)();
 });
-scroller5.setup({
-  step: "#gdp",
-  offset: 0.4,
+scroller6.setup({
+  step: "#total-gdp",
+  offset: 0.15,
   once: true
 }).onStepEnter(function (response) {
   return (0, _$gdp_45.playGDP)();
 });
-scroller.setup({
-  step: "#fume-svg",
-  offset: 0.6,
-  once: true
+scroller7.setup({
+  step: "#stimulus",
+  once: true,
+  offset: 0.6
 }).onStepEnter(function (response) {
-  return _$d3Node_38.select("#fume").remove();
-});
-scroller6.setup({
-  step: "#竖表",
-  once: true
-}).onStepEnter(function (response) {
-  return response.element.classList.add("is-active");
+  (0, _$stimulus_52.showCircles)();
 });
 
 }());

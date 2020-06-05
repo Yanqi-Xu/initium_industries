@@ -127,11 +127,11 @@ svg {
   color: #fff;
 }
 .headline :nth-child(2) {
-  color: #8cbeed;
+  color: #000;
 }
 h1 > span:nth-child(1) {
-  background-color: #8cbeed;
   line-height: 1;
+  background-color: #000;
   padding: 0px 10px;
 }
 h1 > span:nth-child(2) {
@@ -296,35 +296,31 @@ body > svg {
   }
 }
 .title {
-  margin: 0 auto;
-  left: 10vw;
-  top: 10vh;
-  font-weight: bold;
-  font-size: 2rem;
+  margin: 0.8em auto;
+  font-weight: 500;
+  text-align: center;
+  font-size: 1.8rem;
 }
 .title p {
   margin: 0;
 }
-@media (min-width: 600px) {
-  .title {
-    left: 0;
-    top: 0;
-    text-align: center;
-  }
-}
 .hed {
-  font-size: 2rem;
+  font-size: 1.2em;
   margin: 0 auto;
   text-align: center;
-  font-weight: bolder;
+  font-weight: bold;
+  text-anchor: middle;
 }
 .part1 .title {
   color: #2f9780;
 }
+.part3 .title {
+  color: #c69c6d;
+}
 .part2 .title {
   color: #75ace5;
 }
-.part3 .title {
+.part4 .title {
   color: #fe7f67;
 }
 .cover {
@@ -367,13 +363,19 @@ input {
   display: flex;
   justify-content: space-between;
 }
+y-axis-label {
+  fill: #53534e;
+  font-size: 14px;
+}
 figcaption {
   font-weight: 300;
   order: 2;
-  font-size: 13px;
+  font-size: 0.9rem;
   color: #505050;
-  padding-top: 2em;
-  padding-left: 10vw;
+  padding-top: 1.6em;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 60%;
 }
 #jobs figcaption {
   order: 9;
@@ -434,6 +436,12 @@ p {
     margin: 0 10vw;
   }
 }
+@media (min-width: 1428px) {
+  #stocks {
+    max-width: 60%;
+    margin: 0 auto;
+  }
+}
 #gotop {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeSpeed;
@@ -479,10 +487,11 @@ p {
 }
 .chart {
   float: left;
-  padding-right: 5px;
+  padding-right: 10px;
   padding-bottom: 5px;
   padding-top: 0;
-  padding-left: 0;
+  padding-left: 10px;
+  margin: auto;
 }
 .background {
   fill: none;
@@ -518,14 +527,20 @@ p {
   font-weight: 300;
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
+#body-container .scrolling {
+  height: 100vh;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
+.page .is-active {
+  scroll-snap-align: start;
+}
+.page {
+  width: 100%;
+}
 @media (max-width: 600px) {
   .graphic-label {
     font-size: 11px;
-  }
-  #flights-page .title {
-    position: relative;
-    margin-left: 60%;
-    max-width: 3em;
   }
 }
 @media (min-width: 600px) {
@@ -548,6 +563,13 @@ p {
   fill: #ffffff;
   font-family: Georgia;
   font-size: 120%;
+}
+#all {
+  margin-right: 10vh;
+}
+#toolbar {
+  margin: 0 auto;
+  text-align: center;
 }
 .graphic {
   margin: 0.2em 0;
@@ -615,11 +637,11 @@ svg#gold-svg path {
   stroke-width: 1.5px;
 }
 .sparkcircle {
-  fill: #f00;
+  fill: #fe7f67;
   stroke: none;
 }
 .sparkline-label {
-  color: #f00;
+  color: #fe7f67;
 }
 #stack {
   display: -webkit-box;
@@ -632,7 +654,7 @@ svg#gold-svg path {
 }
 .group-container {
   display: inline-flex;
-  width: 8vw;
+  width: 7.8vw;
 }
 canvas {
   margin: 0 auto;
@@ -695,7 +717,138 @@ canvas {
   .gdp-label {
     font-size: 11px;
   }
+  .gdp-value {
+    font-size: 11px;
+  }
 }
 .credit td {
   padding: 0.3em 1em;
+}
+.table-div {
+  display: block;
+  max-width: 90%;
+  margin: 0 auto;
+}
+#trade table {
+  margin: 0 auto;
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+}
+#trade thead {
+  font-size: 0.9em;
+  letter-spacing: 0;
+  font-weight: 900;
+  margin: 0 auto;
+  text-align: left;
+}
+#trade thead th {
+  position: sticky;
+  /* Keep our header sticky when displaying a long table */
+  top: 0;
+  color: #f8f9fa;
+  background: #34495e;
+  padding: 1em 0.8rem;
+  word-wrap: break-word;
+}
+#trade tbody {
+  margin: 0 auto;
+}
+#trade tr > td:nth-child(1) {
+  min-width: 35%;
+}
+#trade tbody tr:nth-child(odd) {
+  background: #f0f0f3;
+}
+#trade tbody tr:hover {
+  background: #d7ecec;
+  /* Highlight the entire row when a user hovers over it */
+}
+#trade td {
+  padding: 0.5em 0.5rem;
+  font-family: sans-serif;
+  font-weight: 300;
+  word-wrap: break-word;
+}
+#trade tr:nth-child(5) > td {
+  background-color: #8cbeedcb;
+}
+#trade .number {
+  text-align: right;
+  /* This makes our font have equal character widths; otherwise 47.1 looks smaller than 45.5  */
+  font-feature-settings: "tnum" 1;
+}
+#trade .date {
+  text-align: right;
+  /* This makes our font have equal character widths; otherwise 47.1 looks smaller than 45.5  */
+  font-feature-settings: "tnum" 1;
+}
+#trade tbody .marker {
+  font-size: 0.7em;
+}
+#trade tbody .symbol {
+  opacity: 0.6;
+}
+#trade .centered {
+  text-align: center;
+}
+#trade tbody .text {
+  font-size: 0.9em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+path.arrow,
+#arrowhead {
+  fill: none;
+  stroke: black;
+}
+button {
+  padding: 0.4em;
+  background-color: #a1d1d2;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+#竖表 .is-active {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+.cover__logo {
+  top: 2em;
+  left: 2em;
+  position: absolute;
+  width: 5em;
+  height: 5em;
+}
+.icon--logo {
+  color: #000;
+}
+.icon {
+  display: inline-block;
+  vertical-align: text-bottom;
+  fill: currentColor;
+  width: auto;
 }

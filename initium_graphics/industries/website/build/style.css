@@ -668,11 +668,11 @@ svg#gold-svg path {
   stroke-width: 1.5px;
 }
 .sparkcircle {
-  fill: #fe7f67;
+  fill: #75ace5;
   stroke: none;
 }
 .sparkline-label {
-  color: #fe7f67;
+  color: #75ace5;
 }
 #stack {
   display: -webkit-box;

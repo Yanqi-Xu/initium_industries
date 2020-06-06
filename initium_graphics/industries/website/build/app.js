@@ -34180,8 +34180,12 @@ function sparkline(elemId, type) {
   bounds.append("path").attr("class", "sparkline").attr("d", lineGen(data)).attr("stroke", __colorScale_48(type));
   bounds.append("circle").attr("class", "sparkcircle").attr("cx", __x_48(__timeConv_48(data[134].date))).attr("cy", __y_48(data[134][type])).attr("r", 1.5);
   var dataEndPoint = data[134][type];
-  _$d3Node_38.select(elemId).append("strong") //.attr("width", `${dataEndPoint.length + 2}em`)
-  .attr("class", "sparkline-label").html(Math.round(dataEndPoint) + "美元/金衡制盎司").style("display", "inline-block");
+  bounds.append("line").attr("x1", 0).attr("x2", __width_48).attr("y1", __height_48).attr("y2", __height_48) //.attr("line-width",0.2)
+  .attr("stroke", "#75ace5");
+  bounds.append("line").attr("x1", 0).attr("x2", 0).attr("y1", 0).attr("y2", __height_48) //.attr("line-width",0.2)
+  .attr("stroke", "#75ace5");
+  _$d3Node_38.select(elemId).append("span") //.attr("width", `${dataEndPoint.length + 2}em`)
+  .attr("class", "sparkline-label").html(Math.round(dataEndPoint)).style("display", "inline-block");
 }
 
 sparkline("#spark-gold", "金");
@@ -35181,8 +35185,9 @@ function showCircles() {
   }).attr("cy", function (d) {
     return __yScale_52(gdpAccessor(d));
   });
-  var circleLabels = circleGroup.filter(function (d) {
-    return gdpAccessor(d) > 15000;
+  var circleLabels = circleGroup //.filter((d) => gdpAccessor(d) > 15000)
+  .filter(function (d) {
+    return stimulusAccessor(d) > 750;
   }).append("text").attr("class", "circle-label") //.classed("graphic-label", true)
   .text(function (d) {
     return "".concat(d.country);
@@ -35191,16 +35196,16 @@ function showCircles() {
     return __yScale_52(gdpAccessor(d));
   }).attr("x", function (d) {
     return __xScale_52(xAccessor(d));
-  }).attr("text-anchor", "middle").attr("class", "graphic-label").style("opacity", 0).transition().duration(1200).delay(4500).style("opacity", 1);
+  }).attr("text-anchor", "middle").attr("class", "graphic-label").style("opacity", 0).transition().duration(1200).delay(4500).style("fill", "#000").style("opacity", 1);
   var fromElementX = __xScale_52("埃塞俄比亞");
   var fromElementY = __yScale_52(772) - __radiusScale_52(15) - 1; // const fromElementX = +d3.select("#埃塞俄比亞").attr("cx");
   // const fromElementY = +d3.select("#埃塞俄比亞").attr("cy") - 2;
 
   var endElementY = +fromElementY - __radiusScale_52(15) - 65;
   __bounds_52.append("line").attr("x1", fromElementX).attr("y1", fromElementY).attr("x2", fromElementX).attr("y2", endElementY).attr("stroke", "grey").style("opacity", 0).transition().duration(800).delay(5000).style("opacity", 1);
-  __bounds_52.append("text").attr("x", fromElementX).attr("y", endElementY).attr("text-anchor", "middle").classed("graphic-label", true).attr("dy", "-1.7em").text("埃塞俄比亞").style("opacity", 0).transition().duration(1000).delay(5000).style("opacity", 1);
+  __bounds_52.append("text").attr("x", fromElementX).attr("y", endElementY).attr("text-anchor", "middle").classed("graphic-label", true).attr("dy", "-1.7em").text("埃塞俄比亞").style("opacity", 0).transition().duration(1000).delay(5000).style("fill", "#000").style("opacity", 1);
   __bounds_52.append("text").attr("x", fromElementX).attr("y", endElementY).attr("dy", "-.65em").attr("dx", ".15em").attr("text-anchor", "middle").classed("graphic-label", true) //.attr("dy","-2em")
-  .text("人均政府刺激15美元").style("color", "grey").style("opacity", 0).transition().duration(1000).delay(5000).style("opacity", 1);
+  .text("人均政府刺激15美元").style("fill", "#000").style("opacity", 0).transition().duration(1000).delay(5000).style("opacity", 1);
 } // .attr("dx", "-.35em")
 // .attr("dy", "-.35em");
 // const yAxisLabel = wrapper

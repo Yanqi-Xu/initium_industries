@@ -741,6 +741,10 @@ canvas {
     font-size: 14px;
   }
 }
+#labor-legend {
+  margin: 0 auto;
+  text-align: center;
+}
 .gdp-label {
   font-size: 15px;
 }

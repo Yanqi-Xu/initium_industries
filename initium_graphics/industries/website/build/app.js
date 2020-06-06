@@ -29945,6 +29945,10 @@ var rAccessor = function rAccessor(d) {
   return 100 + +d.rpk;
 };
 
+var newAccessor = function newAccessor(d) {
+  return 100 + +d["new"];
+};
+
 var shareAccessor = function shareAccessor(d) {
   return +d.share;
 }; // Set up chart dimensions
@@ -29974,7 +29978,8 @@ var angleScale = _$d3Node_38.scaleLinear().domain([0, 100]).range([0, 2 * Math.P
 var radiusScale = _$d3Node_38.scaleSqrt().domain([0, 100]).range([0, radius]);
 var pie = _$d3Node_38.pie().value(shareAccessor).sort(function (a, b) {
   return shareAccessor(a) - shareAccessor(b);
-}); //color scales
+});
+var pie2 = _$d3Node_38.pie().value; //color scales
 
 var __color_44 = _$d3Node_38.scaleOrdinal().domain(flights).range(themeColors); //Draw Data
 //Arc initializer
@@ -29983,25 +29988,13 @@ var arc = _$d3Node_38.arc().innerRadius(0);
 var segmentGroup = __bounds_44.append("g").attr("class", "segment-group");
 arc.outerRadius(radius);
 var segments = segmentGroup.selectAll(".segment").data(pie(flights));
-var newSegments = segments.enter().append("g").attr("class", "segment"); //update();
+var newSegments = segments.enter().append("g").attr("class", "segment");
+console.log(pie(flights)); //update();
 
 function updatePie() {
   var init = newSegments.append("path").attr("fill", function (d, i) {
     return __color_44(i);
-  }).attr("d", arc).attr("stroke", "white").attr("stroke-width", "2px").transition().duration(1000); // init
-  //   .transition()
-  //   //.easeElastic()
-  //   .duration(1000)
-  //   .delay(function (d, i) {
-  //     return (25 - i) * 100;
-  //   })
-  //   .attrTween("d", function (d, index) {
-  //     var i = d3.interpolate(0, d.outerRadius);
-  //     return function (t) {
-  //       d.outerRadius = i(t);
-  //       return arc(d, index);
-  //     };
-  //   });
+  }).attr("d", arc).attr("stroke", "white").attr("stroke-width", "2px").transition().duration(1000);
 
   var yLabelPosit = function yLabelPosit(d) {
     var a = d.startAngle + (d.endAngle - d.startAngle) / 2 - Math.PI / 2;
@@ -30035,41 +30028,14 @@ function updatePie() {
     } else {
       return "M" + d.ox + "," + d.oy + "L" + d.sx + "," + d.sy + " " + d.cx + "," + d.cy;
     }
-  }); // const labelGroups = segments.enter().append("g").classed("pie-label", true);
-  // labelGroups
-  //   .append("circle")
-  //   .attr("x", 0)
-  //   .attr("y", 0)
-  //   .attr("r", 2)
-  //   .attr("transform", function (d) {
-  //     return "translate(" + arc.centroid(d) + ")";
-  //   })
-  //   .classed("label-circle", true);
-  //   labelGroups.append("line")
-  //   .attr("x1",function (d) {
-  //     return arc.centroid(d)[0]
-  //   })
-  //   .attr("y1",function (d) {
-  //     return arc.centroid(d)[1]
-  //   })
-  // const labels = segments
-  //   .enter()
-  //   .append("text")
-  //   .classed("graphic-label", true)
-  //   .text((d) => d.data.region)
-  //   .attr("transform", function (d) {
-  //     return "translate(" + arc.centroid(d) + ")";
-  //   })
-  //   .style("text-anchor", "middle")
-  //   .style("font-size", 17)
-  //   .style("fill", "white");
-
+  });
   arc.outerRadius(function (d) {
     return radiusScale(rAccessor(d.data));
   });
-  init.transition().duration(3500).delay(2000).attr("d", arc);
+  var marchPie = init.transition().duration(3500).delay(2000).attr("d", arc);
   var outline = segmentGroup.append("circle").attr("r", radius).style("stroke", "black").style("stroke-dasharray", "2,2").style("stroke-width", ".5px").style("fill", "none").style("opacity", 0).transition().duration(1500).delay(4500).style("opacity", 1);
-  flightsLabels.append("text").attr("text-anchor", "left").attr("x", function (d) {
+  var marchLabel = _$d3Node_38.select("#month").transition().duration(2000).delay(3000).text("三月同比變化");
+  var rpks = flightsLabels.append("text").attr("text-anchor", "left").attr("x", function (d) {
     return xLabelPosit(d);
   }).attr("dx", "-1em").attr("y", function (d) {
     return yLabelPosit(d);
@@ -30080,7 +30046,17 @@ function updatePie() {
     d.sx = d.x - bbox.width / 2 - 2;
     d.ox = d.x + bbox.width / 2 + 2;
     d.sy = d.oy = d.y + 5;
-  }).classed("graphic-label", true).style("opacity", 0).transition().duration(2500).delay(3000).style("opacity", 1);
+  }).classed("graphic-label", true).style("opacity", 0).transition().duration(2000).delay(3000).style("opacity", 1);
+  setTimeout(function () {
+    rpks.transition().delay(2000).duration(3000).text(function (d) {
+      return d.data["new"] + "%";
+    });
+    marchLabel.transition().duration(3000).delay(2000).text("四月同比變化");
+    arc.outerRadius(function (d) {
+      return radiusScale(newAccessor(d.data));
+    });
+    var aprilPie = marchPie.transition().duration(3000).attr("d", arc);
+  }, 3000);
   _$d3Node_38.select(".pie-labels").attr("transform", "translate(-".concat(__width_44 / 15, ",0)"));
 }
 
@@ -34205,7 +34181,7 @@ function sparkline(elemId, type) {
   bounds.append("circle").attr("class", "sparkcircle").attr("cx", __x_48(__timeConv_48(data[134].date))).attr("cy", __y_48(data[134][type])).attr("r", 1.5);
   var dataEndPoint = data[134][type];
   _$d3Node_38.select(elemId).append("strong") //.attr("width", `${dataEndPoint.length + 2}em`)
-  .attr("class", "sparkline-label").html(Math.round(dataEndPoint) + "美元/金衡制盎司").attr("color", "#f00").style("display", "inline-block");
+  .attr("class", "sparkline-label").html(Math.round(dataEndPoint) + "美元/金衡制盎司").style("display", "inline-block");
 }
 
 sparkline("#spark-gold", "金");
@@ -34223,7 +34199,7 @@ var yearAccessor = function yearAccessor(d) {
 };
 
 var changeAccessor = function changeAccessor(d) {
-  return +d.change;
+  return +d.change * 10;
 }; // Create chart dimensions
 
 
@@ -34268,7 +34244,7 @@ var __xAxisGenerator_43 = function xAxisGenerator(g) {
 
 var __yAxis_43 = __bounds_43.call(_$d3Node_38.axisLeft(__yScale_43).tickSize(0).tickPadding(6)).classed("greyaxis", true); //.call((g) => g.select(".domain").remove());
 
-__yAxis_43.append("text").attr("class", "y-axis-label").attr("dy", "-2.5em").attr("dx", "1.5em").text("年變化量:十億噸").attr("text-anchor", "middle").attr("transform", "translate(10,20)");
+__yAxis_43.append("text").attr("class", "y-axis-label").attr("dy", "-2.5em").attr("dx", "1.5em").text("年變化量:億噸").attr("text-anchor", "middle").attr("transform", "translate(10,20)");
 var __crisisStart_43 = [1929, 1939, 1979, 2007];
 var __crisisEnd_43 = [1939, 1945, 1980, 2008];
 var __crisisName_43 = ["大蕭條", "第二次世界大戰", "第二次石油危機", "金融危機"];
@@ -34527,12 +34503,18 @@ function bubbleChart() {
    */
 
 
-  var chart = function chart(selector, rawData) {
+  svg = _$d3Node_38.select("#labor").append("svg").attr("width", width).attr("height", height);
+
+  var chart = function chart(rawData) {
     // convert raw data into nodes data
     nodes = createNodes(rawData); // Create a SVG element inside the provided selector
     // with desired size.
-
-    svg = _$d3Node_38.select(selector).append("svg").attr("width", width).attr("height", height); // Bind nodes data to what will become DOM elements to represent them.
+    // svg = d3
+    //   .select(selector)
+    //   .append("svg")
+    //   .attr("width", width)
+    //   .attr("height", height);
+    // Bind nodes data to what will become DOM elements to represent them.
 
     bubbles = svg.selectAll(".bubble").data(nodes); // Create new circle elements each with class `bubble`.
     // There will be one circle.bubble for each object in the nodes array.
@@ -34563,11 +34545,28 @@ function bubbleChart() {
 
     setTimeout(function () {
       groupBubbles();
-      var legend = svg.append("g").attr("class", "legendOrdinal").attr("transform", "translate(".concat(1 * width / 5, ", ").concat(height / 14, ")"));
-      var legendTitle = svg.append("g").attr("class", "legendTitle").attr("transform", "translate(".concat(1 * width / 8, ", 20)"));
-      var legendQ1 = legend.append("g").classed("q1", true);
-      legendTitle.append("circle").attr("cx", 0).attr("cy", 0).attr("r", 4).attr("fill", "none").attr("stroke", "grey");
-      legendTitle.append("text").attr("x", 0).attr("y", 0).attr("dx", "-1.35em").attr("dy", ".35em").text("\u6BCF  \u4EE3\u8868100\u842C\u500B\u672C\u5B63\u5EA6\u76F8\u6BD4\u4E0A\u5B63\u5EA6\u6E1B\u5C11\u7684\u5168\u8077\u5DE5\u4F5C\u5D17\u4F4D").classed("graphic-label", true).classed("text", true);
+      var legend = svg.append("g").attr("class", "legendOrdinal").attr("transform", "translate(".concat(1 * width / 5, ", ").concat(height / 14, ")")); // const legendTitle = svg
+      //   .append("g")
+      //   .attr("class", "legendTitle")
+      //   .attr("transform", `translate(${(1 * width) / 8}, 15)`);
+
+      var legendQ1 = legend.append("g").classed("q1", true); // legendTitle
+      //   .append("circle")
+      //   .attr("cx", 0)
+      //   .attr("cy", 0)
+      //   .attr("r", 4)
+      //   .attr("fill", "none")
+      //   .attr("stroke", "grey");
+      // legendTitle
+      //   .append("text")
+      //   .attr("x", 0)
+      //   .attr("y", 0)
+      //   .attr("dx", "-1.35em")
+      //   .attr("dy", ".35em")
+      //   .text(`每  代表100萬個本季度相比上季度減少的全職工作崗位`)
+      //   .classed("graphic-label", true)
+      //   .classed("text", true);
+
       legendQ1.append("circle").attr("cx", 0).attr("cy", 0).attr("r", 4).attr("fill", fillColor("Q1")).attr("stroke", "none");
       legendQ1.append("text").attr("x", 0).attr("y", 0).attr("dy", ".35em").attr("dx", "1em").text("2020年Q1（對比2019年Q4）").classed("graphic-label", true);
       var legendQ2 = legend.append("g").classed("q2", true);
@@ -34647,6 +34646,7 @@ function bubbleChart() {
 
   function hideYearTitles() {
     svg.selectAll(".year").remove();
+    svg.select(".bin-chatter").remove();
   }
 
   function hideChatter() {
@@ -34662,6 +34662,7 @@ function bubbleChart() {
     // Another way to do this would be to create
     // the year texts once and then just hide them.
     // var yearsData = d3.keys(yearCenters);
+    svg.append("g").attr("class", "bin-chatter").attr("transform", "translate(".concat(1 * width / 2, ", 20)")).append("text").attr("text-anchor", "middle").attr("x", 0).attr("y", 0).attr("dx", "-1.35em").attr("dy", ".35em").text("\u5C0D\u6BD42019\u5E74Q4\u4E0B\u964D\u7387").classed("graphic-label", true).classed("text", true);
     var years = svg.selectAll(".year").data(yearsData);
     years.enter().append("text").attr("class", "year").attr("x", function (d) {
       return TitlesPos[d.bin].x;
@@ -34719,7 +34720,7 @@ function setupButtons() {
 }
 
 function showBubbles() {
-  myBubbleChart("#labor", dots);
+  myBubbleChart(dots);
   setupButtons();
 }
 

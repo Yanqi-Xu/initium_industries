@@ -29926,7 +29926,7 @@ function legend() {
   return svg.node();
 }
 
-wrapper.append("g").attr("class", "legend").attr("transform", "translate(".concat(width * 0.25, ", ").concat((dimensions.boundedHeight + dimensions.margin.left + dimensions.margin.bottom) * 0.9, ")")).append(function () {
+wrapper.append("g").attr("class", "legend").attr("transform", "translate(".concat(width * 0.22, ", ").concat((dimensions.boundedHeight + dimensions.margin.left + dimensions.margin.bottom) * 0.9, ")")).append(function () {
   return legend({
     color: color,
     title: "該地對其他國家或地區實施的旅行限制數目",
@@ -30190,7 +30190,7 @@ var margin = {
   top: 20,
   right: 20,
   bottom: 10,
-  left: 20
+  left: 15
 },
     __width_50 = window.innerWidth * 0.85 - margin.left - margin.right,
     // Use the window's width
@@ -34227,7 +34227,7 @@ var changeAccessor = function changeAccessor(d) {
 }; // Create chart dimensions
 
 
-var __width_43 = window.innerWidth * 0.9;
+var __width_43 = window.innerWidth * 0.95;
 var __dimensions_43 = {
   width: __width_43,
   height: window.innerHeight * 0.8,
@@ -34242,7 +34242,7 @@ var __dimensions_43 = {
 __dimensions_43.boundedWidth = __dimensions_43.width - __dimensions_43.margin.left - __dimensions_43.margin.right;
 __dimensions_43.boundedHeight = __dimensions_43.height - __dimensions_43.margin.top - __dimensions_43.margin.bottom; // Draw canvas
 
-var __wrapper_43 = _$d3Node_38.select("#emissions").append("svg").attr("width", __dimensions_43.width).attr("height", __dimensions_43.height).attr("viewBox", "0 0 ".concat(__dimensions_43.width + __dimensions_43.margin.left, " ").concat(__dimensions_43.height + __dimensions_43.margin.top + 10));
+var __wrapper_43 = _$d3Node_38.select("#emissions").append("svg").attr("width", __dimensions_43.width).attr("height", __dimensions_43.height).attr("viewBox", "0 0 ".concat(__dimensions_43.width, " ").concat(__dimensions_43.height + __dimensions_43.margin.top + 10));
 var __bounds_43 = __wrapper_43.append("g").style("transform", "translate(".concat(__dimensions_43.margin.left, "px, ").concat(__dimensions_43.margin.top, "px)")); // Create scales
 
 var __xScale_43 = _$d3Node_38.scaleBand().domain(_$d3Node_38.range(emissions.length)).range([0, __dimensions_43.boundedWidth]).padding(0.2);
@@ -34268,7 +34268,7 @@ var __xAxisGenerator_43 = function xAxisGenerator(g) {
 
 var __yAxis_43 = __bounds_43.call(_$d3Node_38.axisLeft(__yScale_43).tickSize(0).tickPadding(6)).classed("greyaxis", true); //.call((g) => g.select(".domain").remove());
 
-__yAxis_43.append("text").attr("class", "y-axis-label").attr("dy", "-2.5em").attr("dx", ".5em").text("年變化量:十億噸").attr("text-anchor", "middle").attr("transform", "translate(10,20)");
+__yAxis_43.append("text").attr("class", "y-axis-label").attr("dy", "-2.5em").attr("dx", "1.5em").text("年變化量:十億噸").attr("text-anchor", "middle").attr("transform", "translate(10,20)");
 var __crisisStart_43 = [1929, 1939, 1979, 2007];
 var __crisisEnd_43 = [1939, 1945, 1980, 2008];
 var __crisisName_43 = ["大蕭條", "第二次世界大戰", "第二次石油危機", "金融危機"];
@@ -34379,7 +34379,7 @@ function wrap(text, width) {
 function bubbleChart() {
   // Constants for sizing
   var width = window.innerWidth * 0.95;
-  var height = window.innerHeight * 0.9; // Locations to move bubbles towards, depending
+  var height = window.innerHeight * 0.78; // Locations to move bubbles towards, depending
   // on which view mode is selected.
 
   var center = {
@@ -34460,7 +34460,7 @@ function bubbleChart() {
   // of the force layout. Now we can use it as a separate force!
 
   function charge(d) {
-    return -Math.pow(d.radius, 3.15) * forceStrength;
+    return -Math.pow(d.radius, 3.21) * forceStrength;
   } // Here we create a force layout and
   // @v4 We create a force simulation now and
   // add forces to it.
@@ -34789,7 +34789,7 @@ var __margin_46 = {
   bottom: 8,
   left: 50
 },
-    __width_46 = window.innerHeight / 4,
+    __width_46 = window.innerHeight / 3.5,
     // Use the window's width
 __height_46 = __width_46; // Use the window's height
 
@@ -34971,7 +34971,8 @@ var _$trade_55 = {};
 
 /* removed: var _$d3Node_38 = require("d3"); */;
 
-var table = _$d3Node_38.select("#trade");
+var table = _$d3Node_38.select(".trade-table");
+console.log(table);
 var dataset = trade;
 
 var __shareAccessor_55 = function shareAccessor(d) {
@@ -35133,7 +35134,7 @@ __dimensions_52.boundedWidth = __dimensions_52.width - __dimensions_52.margin.le
 __dimensions_52.boundedHeight = __dimensions_52.height - __dimensions_52.margin.top - __dimensions_52.margin.bottom; // Draw canvas
 
 var __wrapper_52 = _$d3Node_38.select("#stimulus").append("svg") // Note that these width and height sizes are the size "outside" of our plot
-.attr("width", __dimensions_52.width).attr("height", __dimensions_52.height);
+.attr("width", __dimensions_52.width).attr("height", __dimensions_52.height).attr("viewBox", "0 0 " + "".concat(__dimensions_52.width + __dimensions_52.margin.right / 2) + " " + "".concat(__dimensions_52.height)).attr("preserveAspectRatio", "xMinYMin");
 var __bounds_52 = __wrapper_52.append("g").style("transform", "translate(".concat(__dimensions_52.margin.left, "px, ").concat(__dimensions_52.margin.top, "px)"));
 var __yScale_52 = _$d3Node_38.scaleLinear().domain(_$d3Node_38.extent(stimulus, gdpAccessor)).rangeRound([__dimensions_52.boundedHeight - 35, 0]);
 var __xScale_52 = _$d3Node_38.scalePoint().domain(stimulus.map(xAccessor)).rangeRound([__dimensions_52.boundedWidth - 50, 0]).padding(0.4);
@@ -36199,7 +36200,27 @@ tlPlane.from("#pinkie-plane", {
   ease: "power2"
 }); //then tween element's y to 50
 //.to("#pinkie-plane", { duration: 1, y: -200 });
-// Initialize scroller
+// let tween = gsap.from("#stimulus-svg", {
+//   viewBox: "1310 200 80 80",
+//   duration: 1,
+//   ease: "power2",
+// });
+// tween.play();
+
+function dropMoney() {
+  var tl = new TimelineMax({
+    delay: 0.5
+  }),
+      svgRoot = document.getElementById("stimulus-svg"); //TweenMax.set(svgRoot, { attr: { viewBox: "1300 200 80 80" } });
+
+  tl.to(svgRoot, 1.5, {
+    attr: {
+      viewBox: "1320 120 80 80"
+    },
+    ease: Bounce.easeOut
+  }, "+=.5");
+} // Initialize scroller
+
 
 var scroller = _$scrollama_40();
 var scroller1 = _$scrollama_40();
@@ -36209,6 +36230,7 @@ var scroller4 = _$scrollama_40();
 var scroller5 = _$scrollama_40();
 var scroller6 = _$scrollama_40();
 var scroller7 = _$scrollama_40();
+var scroller8 = _$scrollama_40();
 var pages = _$d3Node_38.selectAll(".page").nodes();
 
 var getNextSibling = function getNextSibling(elem, selector) {
@@ -36267,14 +36289,15 @@ scroller3.setup({
   offset: 0.32
 }).onStepEnter(function (response) {
   return _$tourism_54.drawBell();
-});
-scroller4.setup({
-  step: "#fume-svg",
-  offset: 0.6,
-  once: true
-}).onStepEnter(function (response) {
-  return console.log(document.querySelector("#fume"));
-});
+}); // scroller4
+//   .setup({
+//     step: "#fume-animation",
+//     offset: 0.6,
+//     once: true,
+//     debug: true,
+//   })
+//   .onStepEnter((response) => console.log(response));
+
 scroller5.setup({
   step: "#labor-page .hed",
   offset: 0.9,
@@ -36284,12 +36307,18 @@ scroller5.setup({
 });
 scroller6.setup({
   step: "#total-gdp",
-  offset: 0.2,
+  offset: 0.25,
   once: true
 }).onStepEnter(function (response) {
   return (0, _$gdp_45.playGDP)();
 });
 scroller7.setup({
+  step: "#stimulus-page .title",
+  offset: 0.58
+}).onStepEnter(function (response) {
+  return dropMoney();
+});
+scroller8.setup({
   step: "#stimulus-svg",
   once: true,
   offset: 0.38

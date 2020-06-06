@@ -201,6 +201,62 @@ body > svg {
   font-size: 2.4em;
   font-family: Hoefler Text, Songti TC, serif;
 }
+@keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-o-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-moz-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 @media (min-width: 1200px) {
   .headline {
     position: absolute;
@@ -231,62 +287,6 @@ body > svg {
   h1 > span {
     font-size: 3rem;
   }
-  @keyframes flickerAnimation {
-    0% {
-      opacity: 1;
-    }
-    25% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-  @-o-keyframes flickerAnimation {
-    0% {
-      opacity: 1;
-    }
-    25% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-  @-moz-keyframes flickerAnimation {
-    0% {
-      opacity: 1;
-    }
-    25% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-  @-webkit-keyframes flickerAnimation {
-    0% {
-      opacity: 1;
-    }
-    25% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
   #噴霧 {
     -webkit-animation: flickerAnimation 0.5s 3;
     -moz-animation: flickerAnimation 0.5s 3;
@@ -294,6 +294,13 @@ body > svg {
     animation: flickerAnimation 0.5s 3;
     animation-fill-mode: forwards;
   }
+}
+#glitter {
+  -webkit-animation: flickerAnimation 2s 100;
+  -moz-animation: flickerAnimation 2s 100;
+  -o-animation: flickerAnimation 2s 100;
+  animation: flickerAnimation 2s 100;
+  animation-fill-mode: forwards;
 }
 @keyframes animateCloud {
   0% {
@@ -304,11 +311,29 @@ body > svg {
     opacity: 0;
   }
 }
-#fume-svg #fume {
-  -webkit-animation: animateCloud 1s 1;
-  -moz-animation: animateCloud 1s 1;
-  -o-animation: animateCloud 1s 1;
-  animation: animateCloud 1s 1;
+@keyframes tilt {
+  0% {
+    transform: rotate(0deg);
+  }
+  40% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+#gdp-svg {
+  -webkit-animation: tilt 4s 100;
+  -moz-animation: tilt 4s 100;
+  -o-animation: tilt 4s 100;
+  animation: tilt 4s 100;
+  animation-fill-mode: forwards;
+}
+#fume-animation {
+  -webkit-animation: animateCloud 4s 100;
+  -moz-animation: animateCloud 4s 100;
+  -o-animation: animateCloud 4s 100;
+  animation: animateCloud 4s 100;
   animation-fill-mode: forwards;
 }
 .title {
@@ -628,16 +653,15 @@ article {
 #stimulus-svg {
   max-height: min(10vh,10vh);
 }
-#gold {
-  fill: "#FFE267";
+use.gold {
+  fill: "#FFE267" !important;
   fill-opacity: 0.8;
-  stroke: "#FFE267";
-}
-#gold-svg {
-  max-height: min(10vh,10vh);
 }
 svg#gold-svg path {
   fill: inherit;
+}
+#gold-svg {
+  max-height: min(10vh,10vh);
 }
 .sparkline {
   fill: none;
@@ -736,20 +760,25 @@ canvas {
   max-width: 90%;
   margin: 0 auto;
 }
-#trade table {
+table.trade-table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100% !important;
+}
+.trade-table table {
   margin: 0 auto;
   table-layout: fixed;
   border-collapse: collapse;
-  width: 100%;
+  width: 100% !important;
 }
-#trade thead {
+.trade-table thead {
   font-size: 0.9em;
   letter-spacing: 0;
   font-weight: 900;
   margin: 0 auto;
   text-align: left;
 }
-#trade thead th {
+.trade-table thead th {
   position: sticky;
   /* Keep our header sticky when displaying a long table */
   top: 0;
@@ -758,48 +787,48 @@ canvas {
   padding: 1em 0.8rem;
   word-wrap: break-word;
 }
-#trade tbody {
+.trade-table tbody {
   margin: 0 auto;
 }
-#trade tr > td:nth-child(1) {
+.trade-table tr > td:nth-child(1) {
   min-width: 35%;
 }
-#trade tbody tr:nth-child(odd) {
+.trade-table tbody tr:nth-child(odd) {
   background: #f0f0f3;
 }
-#trade tbody tr:hover {
+.trade-table tbody tr:hover {
   background: #d7ecec;
   /* Highlight the entire row when a user hovers over it */
 }
-#trade td {
+.trade-table td {
   padding: 0.5em 0.5rem;
   font-family: sans-serif;
   font-weight: 300;
   word-wrap: break-word;
 }
-#trade tr:nth-child(5) > td {
+.trade-table tr:nth-child(5) > td {
   background-color: #8cbeedcb;
 }
-#trade .number {
+.trade-table .number {
   text-align: right;
   /* This makes our font have equal character widths; otherwise 47.1 looks smaller than 45.5  */
   font-feature-settings: "tnum" 1;
 }
-#trade .date {
+.trade-table .date {
   text-align: right;
   /* This makes our font have equal character widths; otherwise 47.1 looks smaller than 45.5  */
   font-feature-settings: "tnum" 1;
 }
-#trade tbody .marker {
+.trade-table tbody .marker {
   font-size: 0.7em;
 }
-#trade tbody .symbol {
+.trade-table tbody .symbol {
   opacity: 0.6;
 }
-#trade .centered {
+.trade-table .centered {
   text-align: center;
 }
-#trade tbody .text {
+.trade-table tbody .text {
   font-size: 0.9em;
   white-space: nowrap;
   text-overflow: ellipsis;

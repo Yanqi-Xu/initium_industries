@@ -340,13 +340,13 @@ body > svg {
   margin: 0.8em auto;
   font-weight: 500;
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 1.85rem;
 }
 .title p {
   margin: 0;
 }
 .hed {
-  font-size: 1.2em;
+  font-size: 1.3em;
   margin: 0 auto;
   text-align: center;
   font-weight: bold;
@@ -389,6 +389,7 @@ input {
   font-size: 1em;
   font-weight: 300;
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  -webkit-font-smoothing: antialiased;
   margin: 0 auto;
   text-align: center;
 }
@@ -401,6 +402,7 @@ input {
   font-size: 1em;
   font-weight: 300;
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  -webkit-font-smoothing: antialiased;
   display: flex;
   justify-content: space-between;
 }
@@ -558,6 +560,7 @@ p {
   font-size: 1em;
   font-weight: 300;
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  -webkit-font-smoothing: antialiased;
 }
 #body-container .scrolling {
   height: 100vh;
@@ -914,23 +917,4 @@ button {
   fill: #53534e;
   font-size: 14px;
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-@keyframes typewriter {
-  from {
-    width: 0;
-  }
-  to {
-    width: 24em;
-  }
-}
-@keyframes blinkTextCursor {
-  from {
-    border-right-color: rgba(255, 255, 255, 0.75);
-  }
-  to {
-    border-right-color: transparent;
-  }
-}
-#type {
-  animation: typewriter 4s steps(44) 1s 1 normal both, blinkTextCursor 500ms steps(44) infinite normal;
 }

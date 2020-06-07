@@ -30112,7 +30112,7 @@ dumbbell.append("text").attr("class", "label current").attr("class", "graphic-la
 });
 _$d3Node_38.select(".dumbbell:last-child").append("text").attr("class", "label future").attr("class", "graphic-label").attr("x", function (d) {
   return xScale(earlyAccessor(d));
-}).attr("y", 0).attr("dy", -10).attr("text-anchor", "middle").text("2019第一季度");
+}).attr("y", 0).attr("dy", -10).attr("text-anchor", "middle").text("2019全年");
 var ballRadius = 5; // dots earlier
 
 dumbbell.append("circle").attr("class", "dumbbell-circle").attr("cx", function (d) {
@@ -30205,7 +30205,7 @@ var lineGen = _$d3Node_38.area().x(function (d) {
   return y(yAccessor(d));
 }).curve(_$d3Node_38.curveBasis); // Initialize line
 
-var line = oilSVG.append("g").append("path").attr("fill", "none").attr("stroke", "#77ace5").attr("stroke-width", 3).attr("shape-rendering", "crispEdges").datum(oil).attr("d", lineGen);
+var line = oilSVG.append("g").append("path").attr("fill", "none").attr("stroke", "#77ace5").attr("stroke-width", 3).attr("shape-rendering", "geometricPrecision;").datum(oil).attr("d", lineGen);
 
 function make_y_gridlines() {
   return _$d3Node_38.axisLeft(y).ticks(5);
@@ -34102,7 +34102,7 @@ var colorScale = _$d3Node_38.scaleOrdinal().domain(["大米", "大豆", "小麥"
 var __lines_42 = __bounds_42.append("g").selectAll(".agline").data(agNest);
 __lines_42.enter().append("path").attr("class", "agline").attr("fill", "none").attr("stroke", function (d) {
   return colorScale(d.key);
-}).attr("stroke-width", 3).attr("shape-rendering", "crispEdges").attr("d", function (d) {
+}).attr("stroke-width", 3).attr("shape-rendering", "geometricPrecision;").attr("d", function (d) {
   return __lineGen_42(d.values);
 }).attr("id", function (d) {
   return "".concat(d.key);
@@ -35260,7 +35260,7 @@ var __margin_45 = {
 },
     __width_45 = window.innerWidth * 0.95 - __margin_45.left - __margin_45.right,
     // Use the window's width
-__height_45 = window.innerHeight * 0.9 - __margin_45.top - __margin_45.bottom; // Use the window's height
+__height_45 = window.innerHeight * 0.85 - __margin_45.top - __margin_45.bottom; // Use the window's height
 
 var __wrapper_45 = _$d3Node_38.select("#gdp").append("svg").attr("width", __width_45 + __margin_45.left + __margin_45.right).attr("height", __height_45 + __margin_45.top + __margin_45.bottom);
 var gdpSVG = __wrapper_45.append("g").attr("transform", "translate(" + __margin_45.left + "," + __margin_45.top + ")");

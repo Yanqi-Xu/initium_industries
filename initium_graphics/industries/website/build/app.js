@@ -29988,8 +29988,7 @@ var arc = _$d3Node_38.arc().innerRadius(0);
 var segmentGroup = __bounds_44.append("g").attr("class", "segment-group");
 arc.outerRadius(radius);
 var segments = segmentGroup.selectAll(".segment").data(pie(flights));
-var newSegments = segments.enter().append("g").attr("class", "segment");
-console.log(pie(flights)); //update();
+var newSegments = segments.enter().append("g").attr("class", "segment"); //update();
 
 function updatePie() {
   var init = newSegments.append("path").attr("fill", function (d, i) {
@@ -34572,10 +34571,10 @@ function bubbleChart() {
       //   .classed("text", true);
 
       legendQ1.append("circle").attr("cx", 0).attr("cy", 0).attr("r", 4).attr("fill", fillColor("Q1")).attr("stroke", "none");
-      legendQ1.append("text").attr("x", 0).attr("y", 0).attr("dy", ".35em").attr("dx", "1em").text("2020年Q1（對比2019年Q4）").classed("graphic-label", true);
+      legendQ1.append("text").attr("x", 0).attr("y", 0).attr("dy", ".35em").attr("dx", "1em").text("2020年Q1（對比2019年Q4）：1.65億").classed("graphic-label", true);
       var legendQ2 = legend.append("g").classed("q2", true);
       var legendQ2Dot = legendQ2.append("circle").attr("cx", 0).attr("cy", 20).attr("r", 4).attr("opacity", 0).attr("fill", fillColor("Q2")).attr("stroke", "none");
-      var legendQ2Label = legendQ2.append("text").attr("x", 0).attr("y", 20).attr("dy", ".35em").attr("dx", "1em").attr("opacity", 0).text("2020年Q2（對比2020年Q1）").classed("graphic-label", true);
+      var legendQ2Label = legendQ2.append("text").attr("x", 0).attr("y", 20).attr("dy", ".35em").attr("dx", "1em").attr("opacity", 0).text("2020年Q2（對比2020年Q1）：3.65億").classed("graphic-label", true);
       legendQ2Label.transition().delay(3800).duration(1000).attr("opacity", "1");
       legendQ2Dot.transition().delay(3800).duration(1000).attr("opacity", "1");
     }, 500);
@@ -34666,14 +34665,14 @@ function bubbleChart() {
     // Another way to do this would be to create
     // the year texts once and then just hide them.
     // var yearsData = d3.keys(yearCenters);
-    svg.append("g").attr("class", "bin-chatter").attr("transform", "translate(".concat(1 * width / 2, ", 20)")).append("text").attr("text-anchor", "middle").attr("x", 0).attr("y", 0).attr("dx", "-1.35em").attr("dy", ".35em").text("\u5C0D\u6BD42019\u5E74Q4\u4E0B\u964D\u7387").classed("graphic-label", true).classed("text", true);
+    svg.append("g").attr("class", "bin-chatter").attr("transform", "translate(".concat(1 * width / 2, ", 20)")).append("text").attr("text-anchor", "middle").attr("x", 0).attr("y", 0).attr("dx", "-1.35em").attr("dy", ".35em").text("\u5C0D\u6BD42019\u5E74Q4\u8B8A\u5316\u7387").classed("graphic-label", true).classed("text", true);
     var years = svg.selectAll(".year").data(yearsData);
     years.enter().append("text").attr("class", "year").attr("x", function (d) {
       return TitlesPos[d.bin].x;
     }).attr("y", function (d) {
       return TitlesPos[d.bin].y;
     }).attr("text-anchor", "middle").text(function (d) {
-      return d.bin + " Q1下降：" + d.Q1 + "% Q2下降：" + d.Q2 + "%";
+      return d.bin + " 截至Q1：" + -d.Q1 + "% 截至Q2：" + -d.Q2 + "%";
     }).classed("graphic-label", true).call(wrap, 80);
   }
   /*
@@ -34977,7 +34976,6 @@ var _$trade_55 = {};
 /* removed: var _$d3Node_38 = require("d3"); */;
 
 var table = _$d3Node_38.select(".trade-table");
-console.log(table);
 var dataset = trade;
 
 var __shareAccessor_55 = function shareAccessor(d) {
